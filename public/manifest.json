@@ -1,15 +1,23 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
+  "manifest_version": 2,
+  "name": "Twissie",
+  "description": "A Twitter client",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "<all_urls>",
+    "http://*/*",
+    "https://*/*"
   ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  }
 }
