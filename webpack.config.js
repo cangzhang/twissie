@@ -2,15 +2,18 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const htmlPlugin = new HtmlWebpackPlugin({
-    template: './public/index.html',
-    filenname: './index.html'
+    template: path.resolve('./src/background.html'),
+    filename: 'background.html',
+    chunks: ['background'],
 })
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        background: './src/index.js',
+    },
     output: {
         path: path.resolve('public'),
-        filename: 'app.js',
+        filename: '[name].js',
     },
     module: {
         rules: [
