@@ -1,42 +1,30 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const htmlPlugin = new HtmlWebpackPlugin({
-    template: path.resolve('./src/background.html'),
-    filename: 'background.html',
-    chunks: ['background'],
-})
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const cleanPlugin = require('clean-webpack-plugin')
 
 module.exports = {
     entry: {
-        background: './src/index.js',
+        background: path.join(__dirname, 'src/index.js'),
     },
     output: {
-        path: path.resolve('public'),
-        filename: '[name].js',
+        path: path.join(__dirname, 'public'),
+        filename: '[name].bundle.js',
     },
+
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 use: 'babel-loader',
                 exclude: /node_modules/,
+                // options: {
+                //     cacheDirectory: true,
+                // },
             },
             {
-                test: /\.css/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: false,
-                            importLoaders: 1,
-                            localIdentName: '[name]_[local]_[hash:base64]',
-                            sourceMap: true,
-                            // minimize: true,
-                        }
-                    }
-                ]
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -59,5 +47,19 @@ module.exports = {
             }
         ]
     },
-    plugins: [htmlPlugin]
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            filename: __dirname + '/public/background.html',
+            chunks: ['background'],
+        }),
+
+        new CopyWebpackPlugin([
+            'src/manifest.json',
+            'src/favicon.ico',
+            'src/icon.png',
+        ]),
+
+        new cleanPlugin(['public']),
+    ]
 }

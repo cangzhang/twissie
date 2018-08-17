@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
+import { hot } from 'react-hot-loader'
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 
@@ -30,4 +31,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App)

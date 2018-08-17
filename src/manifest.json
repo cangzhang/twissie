@@ -1,0 +1,35 @@
+{
+  "name": "Twissie",
+  "description": "A Twitter Extension",
+  "version": "0.1",
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "<all_urls>",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "page": "background.html",
+    "scripts": [
+      "background_bundle.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "background_bundle.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ]
+}

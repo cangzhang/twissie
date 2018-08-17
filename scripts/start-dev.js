@@ -1,7 +1,7 @@
 const path = require('path')
 const _merge = require('lodash/merge')
 const webpack = require('webpack')
-const devServer = require('webpack-dev-server')
+const devServer = require('webpack-serve')
 
 const baseConfig = require('../webpack.config.js')
 
