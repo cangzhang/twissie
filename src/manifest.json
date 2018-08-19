@@ -16,20 +16,6 @@
     "https://*/*"
   ],
   "background": {
-    "page": "background.html",
-    "scripts": [
-      "background_bundle.js"
-    ]
-  },
-  "content_scripts": [
-    {
-      "js": [
-        "background_bundle.js"
-      ],
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ]
-    }
-  ]
+    "page": "background.html"
+  }
 }
