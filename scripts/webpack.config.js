@@ -3,12 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const cleanPlugin = require('clean-webpack-plugin')
 
+const appDir = require('./util')()
+
 module.exports = {
     entry: {
-        background: path.join(__dirname, 'src/index.js'),
+        background: appDir + '/src/index.js',
     },
+
     output: {
-        path: path.join(__dirname, 'public'),
+        path: appDir + '/public',
         filename: '[name].bundle.js',
     },
 
@@ -47,6 +50,7 @@ module.exports = {
             }
         ]
     },
+
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
@@ -61,5 +65,10 @@ module.exports = {
         ]),
 
         new cleanPlugin(['public']),
-    ]
+    ],
+
+    node: {
+        fs: "empty",
+        child_process: "empty",
+    }
 }
