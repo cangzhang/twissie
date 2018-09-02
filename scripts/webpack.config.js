@@ -62,6 +62,7 @@ module.exports = {
             'src/manifest.json',
             'src/favicon.ico',
             'src/icon.png',
+            'src/content-scripts.js',
         ]),
 
         new cleanPlugin(['public']),

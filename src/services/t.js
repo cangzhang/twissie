@@ -1,5 +1,5 @@
 import CodeBird from 'codebird'
-import {key, secret} from './key.json'
+import { key, secret } from './key.json'
 
 let cb = new CodeBird()
 
@@ -11,24 +11,30 @@ const setUpToken = () => {
   cb.setToken(token.token, token.secret)
 }
 
-export const getAuthorize = () => {
+export const getAuthorizeUrl = () => {
   return new Promise((resolve, reject) => {
-    cb.__call('oauth_requestToken', { oauth_callback: 'oob' }, function (resp, rate, err) {
-      if (err) {
-        return reject({ err: 'Request token error.' })
-      }
-      if (resp) {
-        console.log(resp)
-        cb.setToken(resp.oauth_token, resp.oauth_token_secret)
-        cb.__call('oauth_authorize', {}, function (authUrl) {
-          if (authUrl) {
-            resolve(authUrl)
-          } else {
-            reject({ error: 'Authorize url error.' })
-          }
-        })
-      }
-    })
+    cb.__call(
+      'oauth_requestToken',
+      { oauth_callback: 'oob' },
+      (resp, rate, err) => {
+        if (err)
+          return reject({
+            error: 'Request token error.'
+          })
+
+        if (resp) {
+          console.log(resp)
+          cb.setToken(resp.oauth_token, resp.oauth_token_secret)
+          cb.__call('oauth_authorize', {}, function (authUrl) {
+            if (authUrl)
+              return resolve(authUrl)
+
+            return reject({
+              error: 'Authorize url error.'
+            })
+          })
+        }
+      })
 
   })
 }
@@ -38,7 +44,11 @@ export const getAccessToken = (pin) => {
     cb.__call('oauth_accessToken',
       { oauth_verifier: pin },
       function (res, rate, err) {
-        if (err) { return reject({ error: 'Request access token error.' }) }
+        if (err)
+          return reject({
+            error: 'Request access token error.'
+          })
+
         if (res) {
           cb.setToken(res.oauth_token, res.oauth_token_secret)
 
@@ -49,14 +59,17 @@ export const getAccessToken = (pin) => {
 
           // chrome.storage.local.set({ 'twissieToken': token })
           // sessionStorage.setItem('twissieToken', JSON.stringify(token))
-          
+
           return resolve({
             token: res.oauth_token,
             secret: res.oauth_token_secret,
             uid: res.user_id
           })
         }
-        reject({ error: 'Request access token error.' })
+
+        return reject({
+          error: 'Request access token error.'
+        })
       })
   })
 }
@@ -65,16 +78,22 @@ export const getUserInfo = () => {
   return new Promise((resolve, reject) => {
     cb.__call('account_verifyCredentials',
       {},
-      function (res, rate, err) {
-        if (err) { return reject({ error: 'Request verify credentials error.' }) }
-        if (res) {
+      (res, rate, err) => {
+        if (err)
+          return reject({ error: 'Request verify credentials error.' })
+
+
+        if (res)
           return resolve({
             fullName: res.name,
             userName: res.screen_name,
             avatar: res.profile_image_url_https
           })
-        }
-        reject({ error: 'Request verify credentials error.' })
+
+
+        return reject({
+          error: 'Request verify credentials error.'
+        })
       })
   })
 }
@@ -83,18 +102,15 @@ export const getUserInfo = () => {
 export const getTL = () => {
   setUpToken()
   return new Promise((resolve, reject) => {
-    cb.__call(
-      "statuses_homeTimeline",
-      {},
-      function (res, rate, err) {
-        if (err) {
-          return reject(err)
-        }
-        if (res) {
-          return resolve(res)
-        }
+    cb.__call("statuses_homeTimeline", {}, (res, rate, err) => {
+      if (err)
         return reject(err)
-      }
+
+      if (res)
+        return resolve(res)
+
+      return reject(err)
+    }
     )
   })
 }

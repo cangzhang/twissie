@@ -9,13 +9,19 @@
   },
   "permissions": [
     "storage",
-    "tabs",
+    "_tabs",
     "activeTab",
-    "<all_urls>",
+    "_<all_urls>",
     "http://*/*",
     "https://*/*"
   ],
   "background": {
     "page": "background.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https?://api.twitter.com/oauth/authorize$"],
+      "js": ["content-script.js"]
+    }
+  ]
 }
