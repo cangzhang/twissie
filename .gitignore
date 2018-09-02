@@ -2,5 +2,4 @@
 /.idea
 /node_modules
 *key.json
-/public/**
-/public/index.html
+/public/
