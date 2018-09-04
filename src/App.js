@@ -2,14 +2,20 @@ import logo from './logo.svg';
 
 import './App.css';
 
-import { hot } from 'react-hot-loader'
+import _debounce from 'lodash/debounce'
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
+import { hot } from 'react-hot-loader'
 
+import { EXTENSION_ID } from './services/constants'
 import { getAuthorizeUrl } from './services/t'
 import * as chromeSrv from './services/chrome-actions'
 
 class App extends Component {
+  state = {
+    authCode: null
+  }
+
   task = null
 
   componentDidMount() {
@@ -18,26 +24,18 @@ class App extends Component {
   authorize = () => {
     getAuthorizeUrl()
       .then((url) => {
-        console.log(url)
         chrome.tabs.create({ url }, tab => {
-          console.log(tab)
           chrome.tabs.onUpdated.addListener((tabId, updated, thatTab) => {
-            // this.task = setInterval(() => {
-            //   if (thatTab.url === `https://api.twitter.com/oauth/authorize`) {
-            //     chrome.tabs.executeScript(tabId, obj, () => {
-            //       console.log(obj)
-            //     })
-            //   }
-            // }, 300)
+            chrome.runtime.onMessage.addListener(obj => {
+              const { authCode } = this.state
 
-            chrome.runtime.onMessage.addListener(
-              function(request, sender, sendResponse) {
-                  console.log("background.js got a message")
-                  console.log(request);
-                  console.log(sender);
-                  sendResponse("bar");
-              }
-          )
+              if (authCode) return
+
+              console.log(`authCode ${obj[EXTENSION_ID]}`)
+              this.setState({
+                authCode: obj[EXTENSION_ID]
+              })
+            })
           })
         })
       })
@@ -52,7 +50,11 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
 
-        <Button onClick={this.authorize}>AUTHORIZE</Button>
+        <p>{this.state.authCode || ''}</p>
+
+        <Button onClick={_debounce(this.authorize, 300)}>
+          AUTHORIZE
+        </Button>
       </div>
     );
   }

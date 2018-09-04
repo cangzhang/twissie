@@ -6,6 +6,8 @@ const cleanPlugin = require('clean-webpack-plugin')
 const appDir = require('./util')()
 
 module.exports = {
+    context: appDir,
+
     entry: {
         background: appDir + '/src/index.js',
     },
@@ -54,7 +56,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
-            filename: __dirname + '/public/background.html',
+            filename: 'background.html',
             chunks: ['background'],
         }),
 
@@ -65,7 +67,12 @@ module.exports = {
             'src/content-scripts.js',
         ]),
 
-        new cleanPlugin(['public']),
+        new cleanPlugin(
+            ['../public'],
+            {
+                allowExternal: true
+            }
+        ),
     ],
 
     node: {

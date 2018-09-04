@@ -1,5 +1,11 @@
+const EXTENSION_ID = 'ggopahneggnddhomgjomidldgjdedhak'
+
 const code = document.querySelector('#oauth_pin > p > kbd > code').innerText
 
-chrome.runtime.sendMessage({ code }, function (response) {
-    console.log(response);
-});
+chrome.runtime.sendMessage(
+    EXTENSION_ID,
+    { [EXTENSION_ID]: code },
+    (response) => {
+        console.log(response);
+    }
+)

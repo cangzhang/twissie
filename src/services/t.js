@@ -23,7 +23,6 @@ export const getAuthorizeUrl = () => {
           })
 
         if (resp) {
-          console.log(resp)
           cb.setToken(resp.oauth_token, resp.oauth_token_secret)
           cb.__call('oauth_authorize', {}, function (authUrl) {
             if (authUrl)

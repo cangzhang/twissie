@@ -20,8 +20,8 @@
   },
   "content_scripts": [
     {
-      "matches": ["https?://api.twitter.com/oauth/authorize$"],
-      "js": ["content-script.js"]
+      "matches": ["https://api.twitter.com/oauth/authorize"],
+      "js": ["content-scripts.js"]
     }
   ]
 }
