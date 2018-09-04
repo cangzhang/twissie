@@ -9,9 +9,7 @@
   },
   "permissions": [
     "storage",
-    "_tabs",
     "activeTab",
-    "_<all_urls>",
     "http://*/*",
     "https://*/*"
   ],
