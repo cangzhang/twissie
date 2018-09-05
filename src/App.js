@@ -9,35 +9,42 @@ import { hot } from 'react-hot-loader'
 
 import { EXTENSION_ID } from './services/constants'
 import { getAuthorizeUrl } from './services/t'
-import * as chromeSrv from './services/chrome-actions'
+import { getAuthCode, saveAuthCode } from './services/auth-control'
+import { openNewTab } from './services/chrome-actions'
 
 class App extends Component {
   state = {
     authCode: null
   }
 
-  task = null
-
   componentDidMount() {
+    getAuthCode()
+      .then(authCode => {
+        this.setState({ authCode })
+      })
+      .catch(() => {
+        console.warn(`need to get auth code!`)
+      })
   }
 
   authorize = () => {
     getAuthorizeUrl()
-      .then((url) => {
-        chrome.tabs.create({ url }, tab => {
-          chrome.tabs.onUpdated.addListener((tabId, updated, thatTab) => {
-            chrome.runtime.onMessage.addListener(obj => {
+      .then(url => {
+        openNewTab(url)
+          .then(() => {
+            chrome.runtime.onMessage.addListener(codeMsg => {
               const { authCode } = this.state
+              if (authCode)
+                return
 
-              if (authCode) return
-
-              console.log(`authCode ${obj[EXTENSION_ID]}`)
+              console.log(`Auth code: ${codeMsg[EXTENSION_ID]}`)
               this.setState({
-                authCode: obj[EXTENSION_ID]
+                authCode: codeMsg[EXTENSION_ID]
+              }, () => {
+                saveAuthCode(authCode)
               })
             })
           })
-        })
       })
   }
 
@@ -46,7 +53,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo"/>
           <h1 className="App-title">Welcome to React</h1>
         </header>
 
