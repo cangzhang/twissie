@@ -8,9 +8,16 @@ import { Button } from 'semantic-ui-react';
 import { hot } from 'react-hot-loader'
 
 import { EXTENSION_ID } from './services/constants'
-import { getAuthorizeUrl } from './services/t'
-import { getAuthCode, saveAuthCode } from './services/auth-control'
 import { openNewTab } from './services/chrome-actions'
+import {
+  getAccessToken as _getAccessToken,
+  getAuthorizeUrl,
+  getCurUserInfo as _getCurUserInfo
+} from './services/twitter-service'
+import {
+  getAuthCode,
+  saveAuthCode
+} from './services/auth-control'
 
 class App extends Component {
   state = {
@@ -33,21 +40,30 @@ class App extends Component {
         openNewTab(url)
           .then(() => {
             chrome.runtime.onMessage.addListener(codeMsg => {
+              const code = codeMsg[EXTENSION_ID]
               const { authCode } = this.state
-              if (authCode)
+              if (authCode && code === authCode) {
                 return
 
-              console.log(`Auth code: ${codeMsg[EXTENSION_ID]}`)
+              }
+              console.log(`== auth code: ${code} ==`)
               this.setState({
-                authCode: codeMsg[EXTENSION_ID]
+                authCode: code
               }, () => {
-                saveAuthCode(authCode)
+                saveAuthCode(code)
+                _getAccessToken(code)
               })
             })
           })
       })
   }
 
+  getAccessToken = () => {
+    _getCurUserInfo()
+      .then(info => {
+        console.table(info)
+      })
+  }
 
   render() {
     return (
@@ -61,6 +77,10 @@ class App extends Component {
 
         <Button onClick={_debounce(this.authorize, 300)}>
           AUTHORIZE
+        </Button>
+
+        <Button onClick={this.getAccessToken}>
+          Get User Info
         </Button>
       </div>
     );
