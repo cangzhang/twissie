@@ -102,7 +102,7 @@ export const getCurUserInfo = () => {
 }
 
 
-export const getTL = () =>
+export const getTimeLine = () =>
   getTokenNSecret()
     .then(setUpCBToken)
     .then(() => {

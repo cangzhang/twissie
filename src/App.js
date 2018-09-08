@@ -12,7 +12,8 @@ import { openNewTab } from './services/chrome-actions'
 import {
   getAccessToken as _getAccessToken,
   getAuthorizeUrl,
-  getCurUserInfo as _getCurUserInfo
+  getCurUserInfo as _getCurUserInfo,
+  getTimeLine as _getTL,
 } from './services/twitter-service'
 import {
   getAuthCode,
@@ -65,6 +66,10 @@ class App extends Component {
       })
   }
 
+  getTL = () => {
+    _getTL()
+  }
+
   render() {
     return (
       <div className="App">
@@ -81,6 +86,10 @@ class App extends Component {
 
         <Button onClick={this.getAccessToken}>
           Get User Info
+        </Button>
+
+        <Button onClick={this.getTL}>
+          Get TL
         </Button>
       </div>
     );
