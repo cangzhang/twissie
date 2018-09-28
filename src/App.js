@@ -43,11 +43,11 @@ class App extends Component {
             chrome.runtime.onMessage.addListener(codeMsg => {
               const code = codeMsg[EXTENSION_ID]
               const { authCode } = this.state
-              if (authCode && code === authCode) {
-                return
 
-              }
+              if (authCode && code === authCode) return
+
               console.log(`== auth code: ${code} ==`)
+
               this.setState({
                 authCode: code
               }, () => {
@@ -73,10 +73,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+        {/*<header className="App-header">*/}
+        {/*<img src={logo} className="App-logo" alt="logo"/>*/}
+        {/*<h1 className="App-title">Welcome to React</h1>*/}
+        {/*</header>*/}
 
         <p>{this.state.authCode || ''}</p>
 
