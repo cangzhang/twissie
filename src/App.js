@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-
 import './App.css';
 
 import _debounce from 'lodash/debounce'
@@ -20,9 +18,13 @@ import {
   saveAuthCode
 } from './services/auth-control'
 
+import UserInfo from './components/UserInfo'
+
 class App extends Component {
   state = {
-    authCode: null
+    authCode: null,
+    user: {},
+    tweets: [],
   }
 
   componentDidMount() {
@@ -61,36 +63,51 @@ class App extends Component {
 
   getAccessToken = () => {
     _getCurUserInfo()
-      .then(info => {
-        console.table(info)
+      .then(user => {
+        // console.table(user)
+        this.setState({ user })
       })
   }
 
   getTL = () => {
     _getTL()
+      .then(data => {
+        this.setState({
+          tweets: data,
+        })
+      })
   }
 
   render() {
     return (
       <div className="App">
-        {/*<header className="App-header">*/}
-        {/*<img src={logo} className="App-logo" alt="logo"/>*/}
-        {/*<h1 className="App-title">Welcome to React</h1>*/}
-        {/*</header>*/}
+        <div className="row">
+          <p>{this.state.authCode || ''}</p>
 
-        <p>{this.state.authCode || ''}</p>
+          <Button onClick={_debounce(this.authorize, 300)}>
+            AUTHORIZE
+          </Button>
 
-        <Button onClick={_debounce(this.authorize, 300)}>
-          AUTHORIZE
-        </Button>
+          <Button onClick={this.getAccessToken}>
+            Get User Info
+          </Button>
 
-        <Button onClick={this.getAccessToken}>
-          Get User Info
-        </Button>
+          <Button onClick={this.getTL}>
+            Get TL
+          </Button>
+        </div>
 
-        <Button onClick={this.getTL}>
-          Get TL
-        </Button>
+        <div className="row">
+          <UserInfo data={this.state.user}/>
+          <ul>
+            {
+              this.state.tweets.map(item =>
+                <li key={item.id}
+                    dangerouslySetInnerHTML={{ __html: item.text }}>
+                </li>)
+            }
+          </ul>
+        </div>
       </div>
     );
   }

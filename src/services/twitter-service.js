@@ -41,7 +41,6 @@ export const getAuthorizeUrl = () => {
             })
         }
       })
-
   })
 }
 
@@ -82,16 +81,12 @@ export const getCurUserInfo = () => {
         return cb.__call(
           'account_verifyCredentials',
           {},
-          (res, rate, err) => {
+          (resp, rate, err) => {
             if (err)
               return reject({ error: 'Request verify credentials error.' })
 
-            if (res)
-              return resolve({
-                fullName: res.name,
-                userName: res.screen_name,
-                avatar: res.profile_image_url_https
-              })
+            if (resp)
+              return resolve(resp)
 
             return reject({
               error: 'Request verify credentials error.'
@@ -102,12 +97,24 @@ export const getCurUserInfo = () => {
 }
 
 
-export const getTimeLine = () =>
+export const getTimeLine = (options = {}) =>
   getTokenNSecret()
     .then(setUpCBToken)
     .then(() => {
+      const {
+        count,
+        since_id,
+        max_id,
+        trim_user,
+        exclude_replies,
+        include_entities,
+      } = options
+
       return new Promise((resolve, reject) => {
-        cb.__call("statuses_homeTimeline", {}, (res, rate, err) => {
+        cb.__call(
+          "statuses_homeTimeline",
+          options,
+          (res, rate, err) => {
             if (err)
               return reject(err)
 
