@@ -1,5 +1,4 @@
 const path = require('path')
-const _merge = require('lodash/extend')
 const webpack = require('webpack')
 const devServer = require('webpack-dev-server')
 const WriteFilePlugin = require("write-file-webpack-plugin")
