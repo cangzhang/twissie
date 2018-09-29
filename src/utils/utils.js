@@ -1,0 +1,1 @@
+export const getAvatarUrl = url => (url || '').replace('_normal.', '.')

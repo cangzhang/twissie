@@ -19,6 +19,7 @@ import {
 } from './services/auth-control'
 
 import UserInfo from './components/UserInfo'
+import Tweet from './components/Tweet'
 
 class App extends Component {
   state = {
@@ -99,14 +100,9 @@ class App extends Component {
 
         <div className="row">
           <UserInfo data={this.state.user}/>
-          <ul>
-            {
-              this.state.tweets.map(item =>
-                <li key={item.id}
-                    dangerouslySetInnerHTML={{ __html: item.text }}>
-                </li>)
-            }
-          </ul>
+          {
+            this.state.tweets.map(item => <Tweet key={item.id} tweet={item}/>)
+          }
         </div>
       </div>
     );
