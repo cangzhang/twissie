@@ -79,6 +79,17 @@ class App extends Component {
       })
   }
 
+  loadMore = () => {
+    const { tweets } = this.state
+    const maxId = tweets[tweets.length - 1].id
+    _getTL({ max_id: maxId })
+      .then(data => {
+        this.setState({
+          tweets: tweets.concat(data.slice(1, data.length))
+        })
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -95,6 +106,10 @@ class App extends Component {
 
           <Button onClick={this.getTL}>
             Get TL
+          </Button>
+
+          <Button onClick={this.loadMore}>
+            Load more
           </Button>
         </div>
 
