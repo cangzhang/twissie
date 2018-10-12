@@ -18,6 +18,7 @@ import {
   saveAuthCode
 } from './services/auth-control'
 
+import InfiniteScroll from './components/InfiniteScroll'
 import UserInfo from './components/UserInfo'
 import Tweet from './components/Tweet'
 
@@ -31,7 +32,10 @@ class App extends Component {
   componentDidMount() {
     getAuthCode()
       .then(authCode => {
-        this.setState({ authCode })
+        this.setState({ authCode }, () => {
+          this.loadUserInfo()
+          this.getTL()
+        })
       })
       .catch(() => {
         console.warn(`need to get auth code!`)
@@ -62,7 +66,7 @@ class App extends Component {
       })
   }
 
-  getAccessToken = () => {
+  loadUserInfo = () => {
     _getCurUserInfo()
       .then(user => {
         // console.table(user)
@@ -100,7 +104,7 @@ class App extends Component {
             AUTHORIZE
           </Button>
 
-          <Button onClick={this.getAccessToken}>
+          <Button onClick={this.loadUserInfo}>
             Get User Info
           </Button>
 
@@ -113,11 +117,25 @@ class App extends Component {
           </Button>
         </div>
 
-        <div className="row">
-          <UserInfo data={this.state.user}/>
-          {
-            this.state.tweets.map(item => <Tweet key={item.id} tweet={item}/>)
-          }
+        <div className="row"
+             style={{
+               display: 'flex'
+             }}>
+          <div className="col"
+               style={{
+                 padding: '1em'
+               }}
+          >
+            <UserInfo data={this.state.user}/>
+          </div>
+
+          <InfiniteScroll
+            selector={'.tweet-list'}
+            >
+            <div className="col tweet-list">
+              {this.state.tweets.map(item => <Tweet key={item.id} tweet={item}/>)}
+            </div>
+          </InfiniteScroll>
         </div>
       </div>
     );
