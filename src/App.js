@@ -69,7 +69,6 @@ class App extends Component {
   loadUserInfo = () => {
     _getCurUserInfo()
       .then(user => {
-        // console.table(user)
         this.setState({ user })
       })
   }
@@ -131,7 +130,9 @@ class App extends Component {
 
           <InfiniteScroll
             selector={'.tweet-list'}
-            >
+            trigger={250}
+            triggerCallback={_debounce(this.loadMore, 2000)}
+          >
             <div className="col tweet-list">
               {this.state.tweets.map(item => <Tweet key={item.id} tweet={item}/>)}
             </div>

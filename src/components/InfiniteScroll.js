@@ -12,11 +12,11 @@ class InfiniteScroll extends React.Component {
   }
 
   fireScroll = () => {
-    const { selector } = this.props
+    const { selector, trigger, triggerCallback } = this.props
     const totalHeight = window.innerHeight
     const { top, height } = $(selector).getBoundingClientRect()
-    const shouldLoad = Math.abs(top) + totalHeight >= height - 200
-    console.log(shouldLoad)
+    const shouldLoad = Math.abs(top) + totalHeight >= height - trigger
+    shouldLoad && triggerCallback()
   }
 
   render() {
