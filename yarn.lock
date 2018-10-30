@@ -821,16 +821,16 @@
 
 "@types/react-dom@^16.0.9":
   version "16.0.9"
-  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.0.9.tgz#73ceb7abe6703822eab6600e65c5c52efd07fb91"
-  integrity sha512-4Z0bW+75zeQgsEg7RaNuS1k9MKhci7oQqZXxrV5KUGIyXZHHAAL3KA4rjhdH8o6foZ5xsRMSqkoM5A3yRVPR5w==
+  resolved "http://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-16.0.9.tgz#73ceb7abe6703822eab6600e65c5c52efd07fb91"
+  integrity sha1-c863q+ZwOCLqtmAOZcXFLv0H+5E=
   dependencies:
     "@types/node" "*"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.4.18":
   version "16.4.18"
-  resolved "https://registry.npmjs.org/@types/react/-/react-16.4.18.tgz#2e28a2e7f92d3fa7d6a65f2b73275c3e3138a13d"
-  integrity sha512-eFzJKEg6pdeaukVLVZ8Xb79CTl/ysX+ExmOfAAqcFlCCK5TgFDD9kWR0S18sglQ3EmM8U+80enjUqbfnUyqpdA==
+  resolved "http://registry.npm.taobao.org/@types/react/download/@types/react-16.4.18.tgz#2e28a2e7f92d3fa7d6a65f2b73275c3e3138a13d"
+  integrity sha1-Liii5/ktP6fWpl8rcydcPjE4oT0=
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -7583,15 +7583,15 @@ react-dev-utils@^5.0.1:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@^16.5.0:
-  version "16.5.0"
-  resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-16.5.0.tgz#57704e5718669374b182a17ea79a6d24922cb27d"
-  integrity sha512-qgsQdjFH54pQ1AGLCBKsqjPxib4Pnp+cOsNxGPlkHn5YnsSt43sBvHSif6FheY7NMMS6HPeSJOxXf6ECanjacA==
+react-dom@^16.6.0:
+  version "16.6.0"
+  resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-16.6.0.tgz#6375b8391e019a632a89a0988bce85f0cc87a92f"
+  integrity sha1-Y3W4OR4BmmMqiaCYi86F8MyHqS8=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    schedule "^0.3.0"
+    scheduler "^0.10.0"
 
 react-error-overlay@^4.0.0:
   version "4.0.0"
@@ -7615,15 +7615,15 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react@^16.5.0:
-  version "16.5.0"
-  resolved "http://registry.npm.taobao.org/react/download/react-16.5.0.tgz#f2c1e754bf9751a549d9c6d9aca41905beb56575"
-  integrity sha512-nw/yB/L51kA9PsAy17T1JrzzGRk+BlFCJwFF7p+pwVxgqwPjYNeZEkkH7LXn9dmflolrYMXLWMTkQ77suKPTNQ==
+react@^16.6.0:
+  version "16.6.0"
+  resolved "http://registry.npm.taobao.org/react/download/react-16.6.0.tgz#b34761cfaf3e30f5508bc732fb4736730b7da246"
+  integrity sha1-s0dhz68+MPVQi8cy+0c2cwt9okY=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    schedule "^0.3.0"
+    scheduler "^0.10.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -8114,11 +8114,12 @@ sax@^1.2.1, sax@^1.2.4, sax@~1.2.1:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-schedule@^0.3.0:
-  version "0.3.0"
-  resolved "http://registry.npm.taobao.org/schedule/download/schedule-0.3.0.tgz#1be2ab2fc2e768536269ce7326efb478d6c045e8"
-  integrity sha512-20+1KVo517sR7Nt+bYBN8a+bEJDKLPEx7Ohtts1kX05E4/HY53YUNuhfkVNItmWAnBYHcpG9vsd2/CJxG+aPCQ==
+scheduler@^0.10.0:
+  version "0.10.0"
+  resolved "http://registry.npm.taobao.org/scheduler/download/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
+  integrity sha1-eYjekP5+3Mx3TqF1p4PmnEDFIeE=
   dependencies:
+    loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
 schema-utils@^0.3.0:
@@ -8996,10 +8997,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.2.0-dev.20181018:
-  version "3.2.0-dev.20181018"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-3.2.0-dev.20181018.tgz#2f05d613e86d06d814214a1101b3b8bf58d52950"
-  integrity sha512-BML75AnK2PZu54xULlF3zQaJh1flrtt66NEYc4NBHZwCh1jFbVP2E8nNpoRcZyMh4EiSCvX3r6zUpPYcY10vzQ==
+typescript@^3.1.4:
+  version "3.1.4"
+  resolved "http://registry.npm.taobao.org/typescript/download/typescript-3.1.4.tgz#c74ef7b3c2da65beff548b903022cb8c3cd997ed"
+  integrity sha1-x073s8LaZb7/VIuQMCLLjDzZl+0=
 
 uglify-es@^3.3.4:
   version "3.3.9"

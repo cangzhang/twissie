@@ -47,9 +47,9 @@
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
     "raf": "3.4.0",
-    "react": "^16.5.0",
+    "react": "^16.6.0",
     "react-dev-utils": "^5.0.1",
-    "react-dom": "^16.5.0",
+    "react-dom": "^16.6.0",
     "react-hot-loader": "^4.3.4",
     "resolve": "1.6.0",
     "semantic-ui-css": "^2.3.3",
@@ -115,7 +115,7 @@
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
     "add": "^2.0.6",
-    "typescript": "^3.2.0-dev.20181018",
+    "typescript": "^3.1.4",
     "yarn": "^1.10.1"
   }
 }
