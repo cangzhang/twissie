@@ -74,7 +74,7 @@ class App extends Component {
   }
 
   getTL = () => {
-    _getTL()
+    _getTL({ count: 5 })
       .then(data => {
         this.setState({
           tweets: data,
@@ -85,6 +85,9 @@ class App extends Component {
   loadMore = () => {
     const { tweets } = this.state
     const maxId = tweets[tweets.length - 1].id
+
+    return
+
     _getTL({ max_id: maxId })
       .then(data => {
         this.setState({

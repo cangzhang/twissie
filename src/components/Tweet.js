@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Image } from 'semantic-ui-react'
 
 import { getAvatarUrl, getDisplayTime } from '../utils/utils'
+import Content from './TweetContent'
 
 export default class TweetContainer extends React.Component {
   render() {
@@ -21,6 +22,7 @@ export default class TweetContainer extends React.Component {
         <span>{time}</span>
         <p dangerouslySetInnerHTML={{ __html: tweet.text }}/>
         <p dangerouslySetInnerHTML={{ __html: tweet.source }}/>
+        <Content tweet={tweet || {}}/>
       </Container>
     )
   }
